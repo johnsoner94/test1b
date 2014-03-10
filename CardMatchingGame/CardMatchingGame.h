@@ -11,11 +11,17 @@
 #import "Card.h"
 
 @interface CardMatchingGame : NSObject
+{
+    @public PlayingCard *cardOne;
+    @public PlayingCard *cardTwo;
+}
 
 @property (readonly) NSInteger score;
 
-- (Card *)getCardUsingIndex:(NSUInteger)index;
+- (PlayingCard *)cardAtIndex:(NSUInteger)index;
 - (id)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
+- (void)chooseCardWithTag:(NSUInteger)tag;
 - (void)chooseCardAtIndex:(NSUInteger)index;
+- (NSInteger)match:(PlayingCard *)firstCard toMatch: (PlayingCard *)secondCard;
 
 @end

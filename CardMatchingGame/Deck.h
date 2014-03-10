@@ -7,21 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Card.h"
+#import "PlayingCard.h"
 
 @interface Deck : NSObject
-/*{
-    NSMutableArray *cards;
-}*/
-
-- (Card *) drawRandomCard;
+{
+    PlayingCard *randomCard;
+}
 
 
-- (void) addCard:(Card *)aCard atTop: (BOOL) atTop;
+- (PlayingCard *)drawRandomCard;
 
-- (void) addCard: (Card *)aCard;
 
-- (NSMutableArray *)cards;
+- (void) addCard:(PlayingCard *)aCard atTop: (BOOL) atTop;
+
 
 
 

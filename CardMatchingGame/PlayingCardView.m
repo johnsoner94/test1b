@@ -7,6 +7,7 @@
 //
 
 #import "PlayingCardView.h"
+#import "PlayingCard.h"
 
 @implementation PlayingCardView
 
@@ -41,7 +42,22 @@
     [self setup];
 }
 
-/*- (void)drawCorners
+- (CGFloat)cornerScaleFactor
+{
+    return self.bounds.size.height/CORNER_FONT_STANDARD_HEIGHT;
+}
+
+- (CGFloat)cornerRadius
+{
+    return CORNER_RADIUS * [self cornerScaleFactor];
+}
+
+- (CGFloat)cornerOffset
+{
+    return [self cornerRadius] / 3.0;
+}
+
+- (void)drawCorners:(PlayingCard *) aCard
 {
     // You first need to initilize the instance variable
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -53,7 +69,7 @@
     UIFont *cornerFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     cornerFont = [cornerFont fontWithSize:cornerFont.pointSize * [self cornerScaleFactor]];
     
-    NSString *cornerString = [NSString stringWithFormat:@"%@\n%@",[self rankAsString], self.suit];
+    NSString *cornerString = [NSString stringWithFormat:@"%@\n%@", [aCard rankAsStrings], self.suit];
     NSAttributedString *cornerText = [[NSAttributedString alloc]initWithString:cornerString attributes:@{NSFontAttributeName: cornerFont, NSParagraphStyleAttributeName: paragraphStyle}];
     
     CGRect textBounds;
@@ -68,7 +84,7 @@
     CGContextRotateCTM(ctx, M_PI);
     
     [cornerText drawInRect:textBounds];
-}*/
+}
 
 
 const double CORNER_FONT_STANDARD_HEIGHT = 180.0;

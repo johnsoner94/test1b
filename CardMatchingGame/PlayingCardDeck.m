@@ -22,7 +22,7 @@
                 PlayingCard *card = [[PlayingCard alloc] init];
                 card.rank = i;
                 card.suit = suit;
-                [self addCard:card];
+                [self addCard:card atTop:YES];
             }
         }
     }

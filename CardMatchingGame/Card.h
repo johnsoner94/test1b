@@ -11,10 +11,17 @@
 
 @interface Card : NSObject
 
-@property (strong, nonatomic) NSString *contents;
+@property (nonatomic) NSString *contents;
 @property (nonatomic) BOOL matched;
 @property (nonatomic) BOOL chosen;
+@property (nonatomic) NSString *suit;
+@property (nonatomic) NSUInteger rank;
 
-- (int)match:(Card *)aCard;
+//this shall be a class method
+/*
+ + (NSArray *)validSuits;
+ */
+
+- (int)match:(NSArray *)aCard;
 
 @end

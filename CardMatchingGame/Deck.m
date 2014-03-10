@@ -17,29 +17,58 @@
 
 
 @implementation Deck
-@synthesize cards=_cards;
+//@synthesize cards=_cards;
 
-- (Card *) drawRandomCard
+- (NSMutableArray *)cards
 {
-    Card *randomCard = nil;
-    if ([self.cards count]) {
-        unsigned index = arc4random()  % [self.cards count];
-        randomCard = [self.cards objectAtIndex:index];
-        [self.cards removeObject:randomCard];
+    if (!_cards)
+    {
+        _cards = [[NSMutableArray alloc] init];
     }
-    
-    
-    return randomCard;
+    return _cards;
 }
 
-- (Card *)getCard:(NSUInteger)index
+-(id)init
 {
-    return [_cards objectAtIndex: index];
+    self = [super init];
+    if (self)
+    {
+        // set up deck
+        NSMutableArray *deck = [[NSMutableArray alloc] init];
+        // Loop throught the valid suits and ranks and create the deck
+        for (NSString *suit in [PlayingCard validSuits])
+        {
+            for (NSUInteger i =1; i<[PlayingCard maxRank] ; i++)
+            {
+                PlayingCard *card = [[PlayingCard alloc] init];
+                card.rank = i;
+                card.suit = suit;
+                [deck addObject:[self.cards objectAtIndex:i]];
+            }
+        }
+    }
+    return self;
+
+//        // set up deck
+//        NSMutableArray *deck = [[NSMutableArray alloc] init];
+//        // Loop throught the valid suits and ranks and create the deck
+//        for (NSUInteger i=0; i<[self.cards count]; i++) {
+//            if ([[[self.cards objectAtIndex:i] validSuits] indexOfObject:[[self.cards objectAtIndex:i] suit]] != NSNotFound && ![[[self.cards objectAtIndex:i] rankAsString] isEqualToString:@"?"]) {
+//                [deck addObject:[self.cards objectAtIndex:i]];
+//            }
+//        }
+//    }
+//    return self;
 }
 
+//- (Card *)getCard:(NSUInteger)index
+//{
+//    return [_cards objectAtIndex: index];
+//}
 
 
-- (void) addCard:(Card *)aCard atTop: (BOOL) atTop
+
+- (void) addCard:(PlayingCard *)aCard atTop: (BOOL) atTop
 
 {
     if (atTop) {
@@ -51,18 +80,22 @@
     }
 }
 
-- (void) addCard: (Card *)aCard
+- (void) addCard:(PlayingCard *)aCard
 {
     [self addCard:aCard atTop:NO];
 }
 
-- (NSMutableArray *)cards
+- (PlayingCard *)drawRandomCard
 {
-    if (!_cards)
-    {
-        _cards = [[NSMutableArray alloc] init];
+    randomCard = nil;
+    if ([self.cards count]) {
+        unsigned index = arc4random()  % [self.cards count];
+        randomCard = [self.cards objectAtIndex:index];
+        [self.cards removeObject:randomCard];
     }
-    return _cards;
+    
+    
+    return randomCard;
 }
 
 
