@@ -1,0 +1,36 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid2\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+{\info
+{\author Emily Johnson}}\margl1440\margr1440\vieww25400\viewh13520\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl360\slmult1\pardirnatural
+
+\f0\fs24 \cf0 Obstacles That I Recognized I Needed to Face\
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl360\slmult1\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	\'95	}You need to figure out what is needed with your controllers. (i.e. root controller?)\
+{\listtext	\'95	}You think you\'92ll be able to overlay the cards face over the Muhlenberg back. Try to determine if this is true.\
+{\listtext	\'95	}You need to figure out if you can use the already existing match method to control the turn over method.\
+\pard\tx940\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1440\fi-1440\sl360\slmult1\pardirnatural
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}Also if you can use the match method to determine the score.\
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl360\slmult1\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	\'95	}Make sure that you connect whatever your score method is to update the score everytime there is a change.\
+{\listtext	\'95	}Determine what you need to do to initialize everything.\
+{\listtext	\'95	}How to determine where the cards are initially assigned, and also what random cards are going to be called.\
+{\listtext	\'95	}The way that the cards match matter and should be be considered.\
+{\listtext	\'95	}You need to flip the card over after it is selected. The score can\'92t be in the flip method.\
+{\listtext	\'95	}Each button has an assigned index and each card is randomly assigned a index.\
+{\listtext	\'95	}You need to figure out how to use SuperCard to create what you want your card to look like, and then use the view controller and CardMatchingGame.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl360\slmult1\pardirnatural
+\cf0 Solutions and Plans of Execution\
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl360\slmult1\pardirnatural
+\ls2\ilvl0\cf0 {\listtext	\'95	}A solution to the flip over problem is to make the card faces the background and then when there is a match just remove the image and change the card color (or however you are going to denote you can no longer selected it).\
+{\listtext	\'95	}When it makes a match the card become immediately disabled. It becomes shaded in and an action related to it becomes disabled.\
+{\listtext	\'95	}The cards placement can be assigned when the app is first run. When the game starts the CardMatchingGame could call for 16 random cards place those cards into an array. When the button then clicks it has a number and then that would correlate to a card object in the array at that index. The picture of the card could then be generated using the PlayingCardView and the CardMatchingGameViewController could mediate that the card that is being create would be placed on the button. (Sort of like a visible, then not visible button). Those cards that were called by the getCardUsingIndex would be set equal to temporary cards.\
+{\listtext	\'95	}In CardMatchingGame there should be two temporary cards. A safeguard could be put into place here to make sure that the two cards are compared before another card can be selected.\
+{\listtext	\'95	}The score should only be subtracted from when the card is flipped and the boolean faceUp is true.\
+{\listtext	\'95	}In a method in CardMatchingGame there should be something that checks to see if the two cards that are being compared are the same. The first should check to see if the suit of the two cards are the same. If they are it should add four points to the score and then disable the button and change the view of the card (by shading it or something). If they didn\'92t match in suit then it should compare rank, if those are the same then the score should be added to by 16 and the button to flip that card over should be disabled. If there is no match at all 2 points should be deducted and then the two cards should be flipped over.\
+{\listtext	\'95	}\
+}
