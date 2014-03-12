@@ -90,33 +90,48 @@
     
     // the cards that have been chosen need to have their background changed and their title set
     NSMutableArray *chosenCards = [self.cardGame areCardsChosen];
-    PlayingCard *cardOne = [chosenCards objectAtIndex:0];
-    PlayingCard *cardTwo = [chosenCards objectAtIndex:1];
     
-    NSInteger indexOne = [_deckOfCards indexOfObject:cardOne];
-    UIButton *buttonOne = (UIButton *)[self.view viewWithTag:indexOne];
-    [buttonOne setBackgroundImage:[self backgroundImageForCard:cardOne] forState:UIControlStateNormal];
-    [buttonOne setTitle:cardOne.contents forState:UIControlStateNormal];
-   
-    NSInteger indexTwo = [_deckOfCards indexOfObject:cardTwo];
-    UIButton *buttonTwo = (UIButton *)[self.view viewWithTag:indexTwo];
-    [buttonTwo setBackgroundImage:[self backgroundImageForCard: cardTwo] forState:UIControlStateNormal];
-    [buttonTwo setTitle:cardTwo.contents forState:UIControlStateNormal];
+    if (chosenCards.count == 1) {
+        
+        PlayingCard *cardOne = [chosenCards objectAtIndex:0];
+        
+        NSInteger indexOne = [_deckOfCards indexOfObject:cardOne];
+        UIButton *buttonOne = (UIButton *)[self.view viewWithTag:indexOne];
+        [buttonOne setBackgroundImage:[self backgroundImageForCard:cardOne] forState:UIControlStateNormal];
+        [buttonOne setTitle:cardOne.contents forState:UIControlStateNormal];
+    }
     
-    //the cards that have been matched need to be disabled
-    NSMutableArray *matchedCards = [self.cardGame areCardsChosen];
-    PlayingCard *matchOne = [matchedCards objectAtIndex:0];
-    PlayingCard *matchTwo = [matchedCards objectAtIndex:1];
+    else if (chosenCards.count == 2)
+    {
+        PlayingCard *cardOne = [chosenCards objectAtIndex:0];
+        PlayingCard *cardTwo = [chosenCards objectAtIndex:1];
+        
+        NSInteger indexOne = [_deckOfCards indexOfObject:cardOne];
+        UIButton *buttonOne = (UIButton *)[self.view viewWithTag:indexOne];
+        [buttonOne setBackgroundImage:[self backgroundImageForCard:cardOne] forState:UIControlStateSelected];
+        [buttonOne setTitle:cardOne.contents forState:UIControlStateNormal];
+        
+        NSInteger indexTwo = [_deckOfCards indexOfObject:cardTwo];
+        UIButton *buttonTwo = (UIButton *)[self.view viewWithTag:indexTwo];
+        [buttonTwo setBackgroundImage:[self backgroundImageForCard: cardTwo] forState:UIControlStateNormal];
+        [buttonTwo setTitle:cardTwo.contents forState:UIControlStateNormal];
+        
+        //the cards that have been matched need to be disabled
+        NSMutableArray *matchedCards = [self.cardGame areCardsChosen];
+        PlayingCard *matchOne = [matchedCards objectAtIndex:0];
+        PlayingCard *matchTwo = [matchedCards objectAtIndex:1];
+        
+        NSInteger matchNumOne = [_deckOfCards indexOfObject:matchOne];
+        UIButton *matchButtonOne = (UIButton *)[self.view viewWithTag:matchNumOne];
+        matchButtonOne.enabled = NO;
+        [matchButtonOne setBackgroundImage:[self backgroundImageForCard:matchOne] forState:UIControlStateNormal];
+        
+        NSInteger matchNumTwo = [_deckOfCards indexOfObject:matchTwo];
+        UIButton *matchButtonTwo = (UIButton *)[self.view viewWithTag:matchNumTwo];
+        matchButtonTwo.enabled = NO;
+        [matchButtonOne setBackgroundImage:[self backgroundImageForCard:matchTwo] forState:UIControlStateNormal];
+    }
     
-    NSInteger matchNumOne = [_deckOfCards indexOfObject:matchOne];
-    UIButton *matchButtonOne = (UIButton *)[self.view viewWithTag:matchNumOne];
-    matchButtonOne.enabled = NO;
-    [matchButtonOne setBackgroundImage:[self backgroundImageForCard:matchOne] forState:UIControlStateNormal];
-    
-    NSInteger matchNumTwo = [_deckOfCards indexOfObject:matchTwo];
-    UIButton *matchButtonTwo = (UIButton *)[self.view viewWithTag:matchNumTwo];
-    matchButtonTwo.enabled = NO;
-    [matchButtonOne setBackgroundImage:[self backgroundImageForCard:matchTwo] forState:UIControlStateNormal];
     
     //set the score Label
     NSString *currentTotalScoreStr = [NSString stringWithFormat:@"%d", self.cardGame.score];

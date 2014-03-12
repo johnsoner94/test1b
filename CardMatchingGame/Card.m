@@ -20,6 +20,7 @@
     if ([otherCards containsObject:self.contents])
     {
         self.matched = YES;
+        // set the other card to match
         return 1;
     }
     return 0;

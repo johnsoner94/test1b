@@ -22,6 +22,7 @@
 
 - (Card *)getCard:(NSUInteger)index;
 
+- (NSUInteger)numCardsInDeck;
 
 
 

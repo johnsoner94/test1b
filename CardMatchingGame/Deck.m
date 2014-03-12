@@ -17,7 +17,7 @@
 
 
 @implementation Deck
-//@synthesize cards=_cards;
+@synthesize cards=_cards;
 
 - (NSMutableArray *)cards
 {
@@ -34,18 +34,20 @@
     if (self)
     {
         // set up deck
-        NSMutableArray *deck = [[NSMutableArray alloc] init];
+        //NSMutableArray *deck = [[NSMutableArray alloc] init];
+        
         // Loop throught the valid suits and ranks and create the deck
         for (NSString *suit in [PlayingCard validSuits])
         {
-            for (NSUInteger i =1; i<[PlayingCard maxRank] ; i++)
+            for (NSUInteger i = 1; i<[PlayingCard maxRank] ; i++)
             {
                 PlayingCard *card = [[PlayingCard alloc] init];
                 card.rank = i;
                 card.suit = suit;
-                [deck addObject:[self.cards objectAtIndex:i]];
+                [self.cards addObject:card];
             }
         }
+        
     }
     return self;
 
@@ -96,6 +98,11 @@
     
     
     return randomCard;
+}
+
+- (NSUInteger)numCardsInDeck
+{
+    return _cards.count;
 }
 
 

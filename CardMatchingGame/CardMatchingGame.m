@@ -14,6 +14,8 @@
 @property (readwrite) NSInteger score;
 @property (nonatomic, strong, readwrite) NSMutableArray *cards;
 
+// Can I make it so that it only calls cards? What is the point of using deck?
+
 
 @end
 
@@ -33,12 +35,14 @@
     self = [super init];
     if (self)
     {
-        cardOne = [[PlayingCard alloc] init];
-        cardTwo = [[PlayingCard alloc] init];
+//        cardOne = [[PlayingCard alloc] init];
+//        cardTwo = [[PlayingCard alloc] init];
+        [self cards];
         // setup, populate the array of cards. self.cards with random cards
-        for (NSUInteger i = 1; i<count; i++) {
+        for (NSUInteger i = 1; i<count; i++)
+        {
             PlayingCard *aCard = deck.drawRandomCard;
-            [deck addCard:aCard atTop:YES];
+            [_cards addObject:aCard];
         }
         
     }
@@ -75,11 +79,11 @@
 
 - (NSMutableArray *)areCardsChosen
 {
-    NSMutableArray *tempArray = nil;
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
     // search through the cards and find:
     // which ones are chosen
-    for (NSUInteger i = 0; i>_cards.count; i++)
+    for (NSUInteger i = 0; i<_cards.count; i++)
     {
         if ([[_cards objectAtIndex:i] chosen] == YES)
         {

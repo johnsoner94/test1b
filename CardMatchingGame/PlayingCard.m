@@ -9,8 +9,8 @@
 #import "PlayingCard.h"
 
 @implementation PlayingCard
-//@synthesize suit=_suit;
-
+@synthesize suit=_suit;
+@synthesize rank = _rank;
 - (NSString *)contents
 {
     /*NSArray *rankStrings = [PlayingCard rankStrings];
@@ -26,7 +26,7 @@
 - (void) setSuit:(NSString *)suit
 {
     if ([[PlayingCard validSuits] containsObject:suit]) {
-        self.suit = suit;
+        _suit = suit;
     }
 }
 
@@ -124,9 +124,9 @@
 
 - (void)setRank:(NSUInteger)rank
 {
-    if (rank <= [PlayingCard maxRank])
+    if (_rank <= [PlayingCard maxRank])
     {
-        self.rank = rank;
+        _rank = rank;
     }
 }
 
