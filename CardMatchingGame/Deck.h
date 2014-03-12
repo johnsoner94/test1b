@@ -18,7 +18,9 @@
 - (PlayingCard *)drawRandomCard;
 
 
-- (void) addCard:(PlayingCard *)aCard atTop: (BOOL) atTop;
+- (void)addCard:(PlayingCard *)aCard atTop: (BOOL) atTop;
+
+- (Card *)getCard:(NSUInteger)index;
 
 
 

@@ -134,20 +134,25 @@
 - (int)match:(NSArray *)otherCards
 {
     int score = 0;
-    if ([otherCards containsObject:self.suit])
+    for (Card *c  in otherCards)
     {
-        if ([otherCards containsObject:self.rankAsStrings])
+        
+        if ([c.suit isEqualToString:self.suit])
         {
             score = 4;
             self.matched = YES;
         }
         else
         {
-            score = 1;
-            self.matched = YES;
+            if (c.rank == self.rank)
+            {
+                score = 1;
+                self.matched = YES;
+            }
+            self.matched = NO;
         }
+    
     }
-    self.matched = NO;
     return score;
 }
 

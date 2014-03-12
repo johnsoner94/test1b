@@ -61,14 +61,14 @@
 //    return self;
 }
 
-//- (Card *)getCard:(NSUInteger)index
-//{
-//    return [_cards objectAtIndex: index];
-//}
+- (Card *)getCard:(NSUInteger)index
+{
+    return [_cards objectAtIndex: index];
+}
 
 
 
-- (void) addCard:(PlayingCard *)aCard atTop: (BOOL) atTop
+- (void)addCard:(PlayingCard *)aCard atTop: (BOOL) atTop
 
 {
     if (atTop) {
@@ -80,7 +80,7 @@
     }
 }
 
-- (void) addCard:(PlayingCard *)aCard
+- (void)addCard:(PlayingCard *)aCard
 {
     [self addCard:aCard atTop:NO];
 }

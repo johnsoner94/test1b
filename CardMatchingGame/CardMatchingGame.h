@@ -22,6 +22,7 @@
 - (id)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
 - (void)chooseCardWithTag:(NSUInteger)tag;
 - (void)chooseCardAtIndex:(NSUInteger)index;
-- (NSInteger)match:(PlayingCard *)firstCard toMatch: (PlayingCard *)secondCard;
-
+- (NSInteger)match:(PlayingCard *)aCard;
+- (NSMutableArray *)areCardsMatching;
+- (NSMutableArray *)areCardsChosen;
 @end

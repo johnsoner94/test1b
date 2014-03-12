@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cards;
 @property (weak, nonatomic) IBOutlet UILabel *score;
 @property (nonatomic) NSUInteger flipCount;
+- (IBAction)flipCard:(id)sender;
 
 
 
