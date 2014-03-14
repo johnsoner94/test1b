@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayingCardDeck.h"
 
-@interface CardMatchingGameViewController : UIViewController
+@interface CardMatchingGameViewController : UIViewController {
+    PlayingCardDeck *deck;
+}
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cards;
 @property (weak, nonatomic) IBOutlet UILabel *score;

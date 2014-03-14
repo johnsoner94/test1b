@@ -14,8 +14,7 @@
 @interface CardMatchingGameViewController ()
 @property (nonatomic) IBOutlet CardMatchingGame *cardGame;
 @property (strong, nonatomic) IBOutlet UIView *cardView;
-@property (nonatomic) NSMutableArray *deckOfCards;
-
+//@property (nonatomic) NSMutableArray *deckOfCards;
 
 @end
 
@@ -25,8 +24,9 @@
 {
     [super viewDidLoad];
 //    Do any additional setup after loading the view, typically from a nib.
+    [self createDeck];
     
-    self.cardGame= [[CardMatchingGame alloc] initWithCardCount:16 usingDeck:[[Deck alloc] init]];
+    self.cardGame= [[CardMatchingGame alloc] initWithCardCount:16 usingDeck:deck];
     
     NSString *currentTotalScoreStr = [NSString stringWithFormat:@"%d", self.cardGame.score];
     [self.score setText:currentTotalScoreStr];
@@ -48,69 +48,60 @@
     return _cardGame;
 }
 
-- (Deck *)deck
-{
-    return self.deck;
-}
-
-- (Deck *)createDeck
+- (PlayingCardDeck *)createDeck
 {
     // creates the deck and then returns it
-    Deck *deck = [[Deck alloc] init];
+    deck = [[PlayingCardDeck alloc] init];
     return deck;
 }
 
 - (void)updateUI
 {
-    // the cards that have been chosen need to have their background changed and their title set
-    NSMutableArray *chosenCards = [self.cardGame areCardsChosen];
     
-    if (chosenCards.count == 1) {
+    for (NSInteger i=0; i<_cards.count; i++) {
         
-        PlayingCard *cardOne = [chosenCards objectAtIndex:0];
+        PlayingCard *tempCard = [_cardGame cardAtIndex:i];
+        UIButton *tempButton = [_cards objectAtIndex:i];
         
-        NSInteger indexOne = [_deckOfCards indexOfObject:cardOne];
-        indexOne+=100;
-        
-        UIButton *buttonOne = (UIButton *)[self.view viewWithTag:indexOne];
-                            // I want this to call a button using it's tag
-        [buttonOne setBackgroundImage:[self backgroundImageForCard:cardOne] forState:UIControlStateNormal];
-        [buttonOne setTitle:cardOne.contents forState:UIControlStateNormal];
+        if (tempCard.chosen == YES) {
+            if (tempCard.matched == YES) {
+                [tempButton setEnabled:NO];
+                // The card should already be face up.
+            }
+            [tempButton setBackgroundImage:[self backgroundImageForCard:tempCard] forState:UIControlStateNormal];
+            [tempButton setTitle:tempCard.contents forState:UIControlStateNormal];
+        }
+        else
+        {
+            [tempButton setBackgroundImage:[self backgroundImageForCard:tempCard] forState:UIControlStateNormal];
+            [tempButton setTitle:nil forState:UIControlStateNormal];
+            [tempButton setEnabled:YES];
+        }
     }
     
-    else if (chosenCards.count == 2)
+    
+    for (NSInteger i=0; i<_cards.count; i++)
     {
-        //PlayingCard *cardOne = [chosenCards objectAtIndex:0];
-        PlayingCard *cardTwo = [chosenCards objectAtIndex:1];
+        PlayingCard *tempCard = [_cardGame cardAtIndex:i];
+        UIButton *tempButton = [_cards objectAtIndex:i];
         
-//        NSInteger indexOne = [_deckOfCards indexOfObject:cardOne]+100;
-//        UIButton *buttonOne = (UIButton *)[self.view viewWithTag:indexOne];
-//        [buttonOne setBackgroundImage:[self backgroundImageForCard:cardOne] forState:UIControlStateSelected];
-//        [buttonOne setTitle:cardOne.contents forState:UIControlStateNormal];
-        
-        NSInteger indexTwo = [_deckOfCards indexOfObject:cardTwo];
-        indexTwo+=100;
-        UIButton *buttonTwo = (UIButton *)[self.view viewWithTag:indexTwo];
-        [buttonTwo setBackgroundImage:[self backgroundImageForCard: cardTwo] forState:UIControlStateNormal];
-        [buttonTwo setTitle:cardTwo.contents forState:UIControlStateNormal];
-        
-        //the cards that have been matched need to be disabled
-        NSMutableArray *matchedCards = [self.cardGame areCardsChosen];
-        PlayingCard *matchOne = [matchedCards objectAtIndex:0];
-        PlayingCard *matchTwo = [matchedCards objectAtIndex:1];
-        
-        NSInteger matchNumOne = [_deckOfCards indexOfObject:matchOne];
-        matchNumOne+=100;
-        UIButton *matchButtonOne = (UIButton *)[self.view viewWithTag:matchNumOne];
-        matchButtonOne.enabled = NO;
-        [matchButtonOne setBackgroundImage:[self backgroundImageForCard:matchOne] forState:UIControlStateNormal];
-        
-        NSInteger matchNumTwo = [_deckOfCards indexOfObject:matchTwo];
-        matchNumTwo+=100;
-        UIButton *matchButtonTwo = (UIButton *)[self.view viewWithTag:matchNumTwo];
-        matchButtonTwo.enabled = NO;
-        [matchButtonOne setBackgroundImage:[self backgroundImageForCard:matchTwo] forState:UIControlStateNormal];
+        if (tempCard.chosen == YES)
+        {
+            if (tempCard.matched == YES)
+            {
+                [tempButton setEnabled:NO];
+                // The card should already be face up.
+            }
+        }
     }
+    
+    
+    // if the card is not matched and not chosen it is => faced down and enabled
+    // if the card is matched  then it is => face up and disabled
+    // if the card is not matched and chosen it is => face up and enabled
+    
+    // the cards that have been chosen need to have their background changed and their title set
+
     
     
     //set the score Label

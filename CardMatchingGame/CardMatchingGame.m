@@ -7,7 +7,7 @@
 //
 
 #import "CardMatchingGame.h"
-#import "Deck.h"
+#import "PlayingCardDeck.h"
 
 @interface CardMatchingGame()
 
@@ -30,25 +30,22 @@
     return _cards;
 }
 
-- (id)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
+- (id)initWithCardCount:(NSUInteger)count usingDeck:(PlayingCardDeck *)deck
 {
     self = [super init];
     if (self)
     {
-//        cardOne = [[PlayingCard alloc] init];
-//        cardTwo = [[PlayingCard alloc] init];
         [self cards];
         // setup, populate the array of cards. self.cards with random cards
-        for (NSUInteger i = 1; i<count; i++)
+        for (NSUInteger i = 1; i<16; i++)
         {
             PlayingCard *aCard = deck.drawRandomCard;
             [_cards addObject:aCard];
         }
-        
     }
     return self;
-    
 }
+
 
 
 
@@ -65,58 +62,78 @@
 {
     // if you use tags you can implement the choice here
     [self cardAtIndex:tag];
-    
 }
 
 - (void)chooseCardAtIndex:(NSUInteger)index
 {
     // if you use an index you can use this routine to implement the choice
-    PlayingCard *card = [self cardAtIndex:index];
-    card.chosen = YES;
-    
-}
-
-
-- (NSMutableArray *)areCardsChosen
-{
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    
-    // search through the cards and find:
-    // which ones are chosen
-    for (NSUInteger i = 0; i<_cards.count; i++)
+    for (PlayingCard *p in _cards)
     {
-        if ([[_cards objectAtIndex:i] chosen] == YES)
+        if (p.chosen)
         {
-            [tempArray addObject:[_cards objectAtIndex:i]];
-        }
-        if ([[_cards objectAtIndex:i] matched] == YES)
-        {
-            if ([tempArray containsObject:[_cards objectAtIndex:i]])
+            if (![_cards indexOfObject:p] == index)
             {
-                [tempArray removeObject:[_cards objectAtIndex:i]];
+                PlayingCard *indexCard = [_cards objectAtIndex:index];
+                NSMutableArray *tempArray = [[NSMutableArray alloc]init];
+                [tempArray addObject:p];
+                [tempArray addObject:indexCard];
+                _score+=[self match:tempArray];
             }
         }
     }
     
-    return tempArray;
+    PlayingCard *card = [self cardAtIndex:index];
+    if (card.chosen) {
+        card.chosen = NO;
+    }
+    else
+    {
+        card.chosen = YES;
+        _score -= 1;
+    }
 }
 
-- (NSMutableArray *)areCardsMatching
-{
-    NSMutableArray *tempArray = nil;
-    // search through the cards and find:
-    // which ones are matched
-    for (NSUInteger i = 0; i>_cards.count; i++)
-    {
-        if ([[_cards objectAtIndex:i] matched] == YES)
-        {
-            [tempArray addObject:[_cards objectAtIndex:i]];
-        }
-    }
-    
-    
-    return tempArray;
-}
+
+//- (NSMutableArray *)areCardsChosen
+//{
+//    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+//    
+//    // search through the cards and find:
+//    // which ones are chosen
+//    for (NSUInteger i = 0; i<_cards.count; i++)
+//    {
+//        if ([[_cards objectAtIndex:i] chosen] == YES)
+//        {
+//            [tempArray addObject:[_cards objectAtIndex:i]];
+//        }
+//        if ([[_cards objectAtIndex:i] matched] == YES)
+//        {
+//            if ([tempArray containsObject:[_cards objectAtIndex:i]])
+//            {
+//                [tempArray removeObject:[_cards objectAtIndex:i]];
+//            }
+//        }
+//    }
+//    
+//    return tempArray;
+//}
+
+//- (NSMutableArray *)areCardsMatching
+//{
+//    NSMutableArray *tempArray = nil;
+//    // search through the cards and find:
+//    // which ones are matched
+//    for (NSUInteger i = 0; i>_cards.count; i++)
+//    {
+//        if ([[_cards objectAtIndex:i] matched] == YES)
+//        {
+//            [tempArray addObject:[_cards objectAtIndex:i]];
+//        }
+//    }
+//    
+//    
+//    return tempArray;
+//}
 
 
 - (NSInteger)match:(NSMutableArray *)theCards
@@ -146,11 +163,15 @@
         currentScore -= MISMATCH_PENALTY;
         
     }
-    _score = currentScore + _score;
+    //_score = currentScore + _score;
+    
+    firstCard.matched = YES;
+    secondCard.matched = YES;
+    
     return currentScore;
     
-    
 }
+
 
 
 
